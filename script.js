@@ -37,4 +37,28 @@ document.addEventListener("DOMContentLoaded", function () {
             addTask();
         }
     });
+
+    function saveTaskToStorage(taskText) {
+        const storedTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+        storedTasks.push(taskText);
+        localStorage.setItem("tasks", JSON.stringify(storedTasks));
+    }
+
+    function removeTaskFromStorage(taskText) {
+        let storedTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+        storedTasks = storedTasks.filter(task => task !== taskText);
+        localStorage.setItem("tasks", JSON.stringify(storedTasks));
+    }
+
+    addButton.addEventListener("click", function () {
+        addTask(taskInput.value);
+    });
+    
+    taskInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            addTask(taskInput.value);
+        }
+    });
+
+
 });
